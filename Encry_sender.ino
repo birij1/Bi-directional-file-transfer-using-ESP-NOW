@@ -6,12 +6,11 @@
 #define SD_MMC_CLK 39 // GPIO pin used for the clock line of SD card.
 #define SD_MMC_D0 40 // GPIO pin used for data line D0 (single-bit mode).
 #define FILE_CHUNK_SIZE 192 // Maximum chunk size for each data packet sent via ESP-NOW.
-const uint8_t aesKey[16] = { // 16-byte AES key for encryption.
+const uint8_t aesKey[16] = { // example of 16-byte AES key for encryption change it accordingly.
 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
 0x39, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46
 };
-uint8_t receiverMacAddress[] = {0xDC, 0xDA, 0x0C, 0x52, 0xCA, 0x3C}; // MAC address of the
-receiver ESP32.
+uint8_t receiverMacAddress[] = {0xDC, 0xDA, 0x0C, 0x52, 0xCA, 0x3C}; // MAC address of the receiver ESP32 Change accordingly.
 uint8_t buffer[FILE_CHUNK_SIZE + 10]; // Buffer to hold file chunks.
 size_t chunkIndex = 0; // Index to track the chunk being sent.
 size_t totalBytesSent = 0; // Tracks total bytes sent.
@@ -30,7 +29,7 @@ return; // Stop if the SD card is not detected.
 
 }
 
-WiFi.mode(WIFI_STA); // Set Wi-Fi mode to station mode (required for ESP-NOW).
+WiFi.mode(WIFI_STA); // Set Wi-Fi mode to station mode (required for ESP-NOW as they use same antenna).
 
 if (esp_now_init() != ESP_OK) { // Initialize ESP-NOW.
 Serial.println("ESP-NOW Initialization Failed");
