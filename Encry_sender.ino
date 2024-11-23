@@ -2,9 +2,9 @@
 #include <esp_now.h> // Allows ESP-NOW communication, a peer-to-peer wireless protocol.
 #include <WiFi.h> // Provides Wi-Fi functionality (needed for ESP-NOW initialization).
 #include <mbedtls/aes.h> // Library for AES encryption/decryption (secure data transfer).
-#define SD_MMC_CMD 38 // GPIO pin used for CMD line of SD card.
-#define SD_MMC_CLK 39 // GPIO pin used for the clock line of SD card.
-#define SD_MMC_D0 40 // GPIO pin used for data line D0 (single-bit mode).
+#define SD_MMC_CMD 38 // GPIO pin used for CMD line of SD card. Do not change
+#define SD_MMC_CLK 39 // GPIO pin used for the clock line of SD card.Do not change
+#define SD_MMC_D0 40 // GPIO pin used for data line D0 (single-bit mode).Do not change
 #define FILE_CHUNK_SIZE 192 // Maximum chunk size for each data packet sent via ESP-NOW.
 const uint8_t aesKey[16] = { // example of 16-byte AES key for encryption change it accordingly.
 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
@@ -77,7 +77,7 @@ bytesRead += len; // Update bytesRead.
 
 uint8_t encryptedBuffer[FILE_CHUNK_SIZE + 10]; // Buffer for encrypted data.
 size_t alignedLen = ((len + 15) / 16) * 16; // Align to AES block size.
-memset(buffer + len, 0, alignedLen - len); // Pad with zeros.
+memset(buffer + len, 0, alignedLen - len); // Pad with zeros if less than 16 bytes.
 
 aesEncrypt(buffer, encryptedBuffer, alignedLen); // Encrypt the chunk.
 
